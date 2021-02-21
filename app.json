@@ -1,0 +1,18 @@
+{
+    "name": "Xray",
+    "description": "Xray-core on Heroku",
+    "keywords": ["Xray", "V2Ray"],
+    "env": {
+        "UUID": {
+            "description": "UUID of the user",
+            "value": "a885ffa3-3ff9-4297-8fb3-388b1b783aad"
+        },
+        "WSPATH": {
+            "description": "Path of WebSocket",
+            "value": "/"        
+        }
+    },
+    "website": "https://github.com/AkinoKaede/xray-heroku",
+    "repository": "https://github.com/AkinoKaede/xray-heroku",
+    "stack": "container"
+}
