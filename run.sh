@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cat << EOF > /config.json
+cat << EOF > /etc/xray/config.json
 {
 	"inbounds": [{
 		"port": $PORT,
@@ -26,4 +26,4 @@ cat << EOF > /config.json
 }
 EOF
 
-/xray run -c /config.json
+/usr/bin/xray run --config=/etc/xray/config.json
