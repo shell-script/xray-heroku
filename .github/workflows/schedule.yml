@@ -16,9 +16,15 @@ jobs:
         run: |
           LASTEST_TAG="$( curl -sL "https://registry.hub.docker.com/v2/repositories/teddysun/xray/tags/" | jq -r ".results[1].name" || echo "latest" )"
           echo "LASTEST_TAG=$LASTEST_TAG" >> ${GITHUB_ENV}
-          sed -i "1c FROM\ teddysun/xray:${LASTEST_TAG}" Dockerfile
+          CURRENT_TAG="$( awk 'BEGIN {FS=":"} NR==1 {print $2}' Dockerfile )"
+          echo "CURRENT_TAG=$CURRENT_TAG" >> ${GITHUB_ENV}
+          if [ ${CURRENT_TAG} != ${LASTEST_TAG} ]
+          then
+            sed -i "1c FROM\ teddysun/xray:${LASTEST_TAG}" Dockerfile
+          fi
 
       - name: Push
+        if: env.CURRENT_TAG != env.LASTEST_TAG
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
