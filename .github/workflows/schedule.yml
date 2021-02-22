@@ -1,0 +1,26 @@
+name: Update Docker
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '0 */6 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v2
+
+      - name: Update Docker Version
+        run: |
+          LASTEST_TAG="$( curl -sL "https://registry.hub.docker.com/v2/repositories/teddysun/xray/tags/" | jq -r ".results[1].name" || echo "latest" )"
+          echo "LASTEST_TAG=$LASTEST_TAG" >> ${GITHUB_ENV}
+          sed -i "1c FROM\ teddysun/xray:${LASTEST_TAG}" Dockerfile
+
+      - name: Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Update teddysun/xray to ${LASTEST_TAG}"
+          git push -v --progress
