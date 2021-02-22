@@ -19,7 +19,6 @@ cat << EOF > /etc/xray/config.json
 			}
 		}
 	}],
-
 	"outbounds": [{
 		"protocol": "freedom"
 	}]
