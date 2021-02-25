@@ -26,7 +26,7 @@ jobs:
       - name: Push
         if: env.CURRENT_TAG != env.LASTEST_TAG
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git commit -am "Update teddysun/xray to ${LASTEST_TAG}"
           git push -v --progress
